@@ -1,41 +1,52 @@
 package br.com.carv.example.jsp.servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ServletLogin
- */
+import br.com.carv.example.jsp.model.ModelLogin;
+
 @WebServlet("/ServletLogin")
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+  
     public ServletLogin() {
-        super();
-        // TODO Auto-generated constructor stub
+        super();  
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		ModelLogin auth = new ModelLogin();
+		
+		String login = request.getParameter("Email");
+		String password = request.getParameter("Senha");
+		
+		if (!login.isEmpty() && login != null && !password.isEmpty() && password != null) {
+			auth.setLogin(login);
+			auth.setPassword(password);
+			
+			/**/
+			request.getSession().setAttribute("user", auth.getLogin());
+			RequestDispatcher redirect = request.getRequestDispatcher("main/main.jsp");
+			redirect.forward(request, response);
+			
+		} else { 
+			RequestDispatcher redirect = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("msg", "Os campos são obrigatórios! Por favor, insira-os corretamente.");
+			redirect.forward(request, response);
+		}
 	}
 
 }
