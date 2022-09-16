@@ -24,7 +24,7 @@ public class ServletLogin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +54,7 @@ public class ServletLogin extends HttpServlet {
 
 				} else {
 					RequestDispatcher redirect = request.getRequestDispatcher("index.jsp");
-					request.setAttribute("msg", "Email ou senha incorretos.");
+					request.setAttribute("msg", "Login ou senha incorretos.");
 					redirect.forward(request, response);
 				}
 

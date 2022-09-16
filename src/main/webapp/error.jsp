@@ -11,7 +11,6 @@
 	
 	<%
 		out.print(request.getAttribute("msg"));
-	
 	%>
 
 </body>
