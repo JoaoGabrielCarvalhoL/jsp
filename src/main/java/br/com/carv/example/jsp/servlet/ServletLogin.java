@@ -23,7 +23,17 @@ public class ServletLogin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request, response);
+		
+		String action = request.getParameter("action");
+		
+		if(action != null && !action.isEmpty() && action.equalsIgnoreCase("logout")) {
+			request.getSession().invalidate();
+			RequestDispatcher redirect = request.getRequestDispatcher("index.jsp"); 
+			redirect.forward(request, response);
+		} else {
+			doPost(request, response);			
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
