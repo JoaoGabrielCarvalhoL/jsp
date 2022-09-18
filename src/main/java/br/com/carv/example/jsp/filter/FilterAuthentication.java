@@ -21,7 +21,6 @@ public class FilterAuthentication extends jakarta.servlet.http.HttpFilter implem
 	private static final long serialVersionUID = 1L;
 
 	private Connection connection;
-
 	
 	public FilterAuthentication() {
 
