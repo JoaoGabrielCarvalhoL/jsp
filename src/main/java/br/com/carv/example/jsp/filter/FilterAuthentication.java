@@ -4,41 +4,29 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import br.com.carv.example.jsp.connection.ConnectionFactory;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
-/**
- * Servlet Filter implementation class FilterAuthentication
- */
-@WebFilter(urlPatterns = { "/principal/*" })
-public class FilterAuthentication extends HttpFilter implements Filter {
+@jakarta.servlet.annotation.WebFilter(urlPatterns = { "/principal/*" })
+public class FilterAuthentication extends jakarta.servlet.http.HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;
 
 	private Connection connection;
 
-	/**
-	 * @see HttpFilter#HttpFilter()
-	 */
+	
 	public FilterAuthentication() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	/**
-	 * @see Filter#destroy()
-	 */
+	}
+	
 	public void destroy() {
 		try {
 			connection.close();
@@ -47,14 +35,8 @@ public class FilterAuthentication extends HttpFilter implements Filter {
 		}
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
-		// pass the request along the filter chain
 
 		try {
 			HttpServletRequest req = (HttpServletRequest) request;
@@ -83,7 +65,6 @@ public class FilterAuthentication extends HttpFilter implements Filter {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				
 			}
@@ -91,9 +72,6 @@ public class FilterAuthentication extends HttpFilter implements Filter {
 
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		connection = ConnectionFactory.getConnection();
 	}
