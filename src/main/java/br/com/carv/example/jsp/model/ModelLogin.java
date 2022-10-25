@@ -74,5 +74,13 @@ public class ModelLogin implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public boolean isNew() {
+		if(this.id == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }
